@@ -1,0 +1,17 @@
+{
+    "name": "julien/janus",
+    "description": "Migrate data for Drupal 7",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Julien Marciliac",
+            "email": "julien.marciliac@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Janus\\": "Janus/"
+        }
+    },
+    "require": {}
+}
