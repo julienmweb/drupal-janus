@@ -1,36 +1,39 @@
 <?php
 
 use Janus\EntityAssociator;
+use Janus\CSVParser;
 
 ///// PARSE DATA /////
-$crossReferenceTable = array(
-  'numero client' => 'field_client_number',
-  'mail' => 'field_main_email',
-);
-$parsedData          = CSVParser::getParsedCSV(__DIR__ . '/data/nodes-example.csv', ';', $crossReferenceTable);
+$crossReferenceTable = [
+  'client number' => 'field_client_number',
+  'email' => 'field_janus_email',
+];
+
+$csvParser  = new CSVParser();
+$parsedData = $csvParser->getParsedCSV(NODES_CSV_FILES, ';', $crossReferenceTable);
 
 
 ///// ASSOCIATE NODES /////
 $entityAssociator = new EntityAssociator();
 foreach ($parsedData as $data) {
-  //// Associate user ON content_type_1 /////
-  $entity = array(
+  //// Associate user ON another_content_type /////
+  $entity = [
     'entity_type' => 'node',
-    'bundle' => 'content_type_1',
-    'select_by_fields' => array(
-      'field_client_number' => array(
+    'bundle' => 'another_content_type',
+    'select_by_fields' => [
+      'field_client_number' => [
         'column' => 'value',
         'value' => $data['field_client_number'],
-      ),
-    ),
-  );
+      ],
+    ],
+  ];
 
-  $entityAssociated = array(
+  $entityAssociated = [
     'entity_type' => 'user',
-    'field_entity_reference_name' => 'field_entity_reference_janus',
-    'select_by_properties' => array(
-      'mail' => $data['field_main_email'],
-    ),
-  );
+    'field_entity_reference_name' => 'field_users',
+    'select_by_properties' => [
+      'mail' => $data['field_janus_email'],
+    ],
+  ];
   $entityAssociator->associateEntities($entity, $entityAssociated);
 }
