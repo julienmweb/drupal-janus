@@ -23,11 +23,11 @@ foreach ($parsedData as $key => $data) {
 
 ///// GENERATE USERS  /////
 $fieldList = [
-  'fieldPropertyList' => [
+  'propertyFiller' => [
     'name',
     'mail',
   ],
-  'fieldTextList' => [
+  'textFiller' => [
     'field_last_name',
     'field_first_name',
   ],

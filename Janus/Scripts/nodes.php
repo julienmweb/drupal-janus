@@ -14,6 +14,7 @@ $crossReferenceTable = [
   'url' => 'field_janus_url',
   'date' => 'field_janus_date',
   'files' => 'field_janus_file',
+  'client number' => 'field_client_number',
 ];
 
 
@@ -27,10 +28,10 @@ $taxoRefTable['janus_vocabulary'] = [
   'B' => 'Term B',
   'C' => 'Term C',
 ];
-$editor = new Editor($taxoRefTable);
+$editor = new Editor();
 
 foreach ($parsedData as $keyData => $data) {
-  $parsedData[$keyData]["name"] = ucfirst($data['title']);
+  $parsedData[$keyData]["title"] = ucfirst($data['title']);
   $parsedData[$keyData]['field_janus_taxo'] = $editor->formatTermList($data['field_janus_taxo'], $taxoRefTable['janus_vocabulary'], ',');
   $parsedData[$keyData]['field_janus_date'] .= '-01-01 00:00:00';
   $parsedData[$keyData]['field_janus_email'] = explode(',', $data['field_janus_email']);
@@ -45,26 +46,29 @@ foreach ($parsedData as $keyData => $data) {
 
 ///// GENERATE NODES  /////
 $fieldList = [
-  'fieldTextList' => [
+  'textFiller' => [
     'field_janus_text',
     'body',
   ],
-  'fieldEmailList' => [
+  'emailFiller' => [
     'field_janus_email',
   ],
-  'fieldPropertyList' => [
+  'propertyFiller' => [
     'title',
   ],
-  'fieldUrlList' => [
+  'urlFiller' => [
     'field_janus_url',
   ],
-  'fieldDateList' => [
+  'dateFiller' => [
     'field_janus_date',
   ],
-  'fieldFileList' => [
+  'fileFiller' => [
     'field_janus_file',
   ],
-  'fieldTaxoList' => [
+  'intFiller' => [
+    'field_client_number',
+  ],
+  'taxoFiller' => [
     'janus_vocabulary' => 'field_janus_taxo',
   ],
 ];
