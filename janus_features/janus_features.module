@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Janus features feature.
+ */
+
+include_once 'janus_features.features.inc';
