@@ -4,8 +4,6 @@ namespace Janus\Generate;
 
 class UserGenerator extends AbstractGenerator {
 
-  protected $fieldList;
-
   public function __construct($fieldList) {
     parent::__construct();
     $this->fieldList = $fieldList;
@@ -25,12 +23,11 @@ class UserGenerator extends AbstractGenerator {
       $this->bootstrapUser();
     }
     $this->fillPropertyFields();
-    $this->fillTextFields();
-    $this->fillFileFields();
     $this->fillTaxoFields();
-    $this->fillUrlFields();
+    foreach ($this->fieldList as $fillerType => $fields) {
+      $this->fillFields($fillerType);
+    }
     user_save($this->entity);
-
   }
 
   private function loadUser($email) {

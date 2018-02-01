@@ -3,6 +3,7 @@
 namespace Janus\Generate;
 
 use Janus\Generate\FieldFillers\FieldTextFiller;
+use Janus\Generate\FieldFillers\FieldIntFiller;
 use Janus\Generate\FieldFillers\FieldEmailFiller;
 use Janus\Generate\FieldFillers\FieldDateFiller;
 use Janus\Generate\FieldFillers\FieldPropertyFiller;
@@ -12,126 +13,90 @@ use Janus\Generate\FieldFillers\FieldUrlFiller;
 
 abstract class AbstractGenerator {
 
-  protected $fieldTextFiller;
-
-  protected $fieldDateFiller;
-
-  protected $fieldEmailFiller;
-
-  protected $fieldTextPropertyFiller;
-
-  protected $fieldTaxoFiller;
-
-  protected $fieldFileFiller;
-
-  protected $fieldUrlFiller;
-
+  protected $textFiller;
+  protected $intFiller;
+  protected $emailFiller;
+  protected $dateFiller;
+  protected $fileFiller;
+  protected $urlFiller;
+  protected $propertyFiller;
+  protected $taxoFiller;
   protected $data;
-
   protected $entity;
+  protected $fieldList;
 
   public function __construct() {
-    $this->fieldTextFiller = new FieldTextFiller();
-    $this->fieldEmailFiller = new FieldEmailFiller();
-    $this->fieldDateFiller = new FieldDateFiller();
-    $this->fieldTextPropertyFiller = new FieldPropertyFiller();
-    $this->fieldTaxoFiller = new FieldTaxoFiller();
-    $this->fieldFileFiller = new FieldFileFiller();
-    $this->fieldUrlFiller = new FieldUrlFiller();
+    $this->textFiller         = new FieldTextFiller();
+    $this->intFiller          = new FieldIntFiller();
+    $this->emailFiller        = new FieldEmailFiller();
+    $this->dateFiller         = new FieldDateFiller();
+    $this->propertyFiller = new FieldPropertyFiller();
+    $this->taxoFiller         = new FieldTaxoFiller();
+    $this->fileFiller         = new FieldFileFiller();
+    $this->urlFiller          = new FieldUrlFiller();
   }
 
-  protected function fillTextFields() {
-    $fieldTextList = !empty($this->fieldList['fieldTextList']) ? $this->fieldList['fieldTextList'] : [];
-    foreach ($fieldTextList as $text) {
-      if (!empty($this->data[$text])) {
-        $this->fieldTextFiller->fillField($this->entity, $text, $this->data[$text]);
-      }
+  protected function fillFields($fillerType) {
+    switch ($fillerType) {
+      case "textFiller":
+      case "intFiller":
+      case "emailFiller":
+      case "dateFiller":
+      case "fileFiller":
+      case "urlFiller":
+        $this->fillWith($fillerType);
+        break;
+      case "propertyFiller":
+        $this->fillPropertyFields();
+        break;
+      case "taxoFiller":
+        $this->fillTaxoFields();
+        break;
+      default:
+        echo htmlspecialchars($fillerType)."does not exists\n";
     }
   }
 
-  protected function fillEmailFields() {
-    $fieldEmailList = !empty($this->fieldList['fieldEmailList']) ? $this->fieldList['fieldEmailList'] : [];
-    foreach ($fieldEmailList as $text) {
-      if (!empty($this->data[$text])) {
-        if (!\is_array($this->data[$text])) {
-          $this->data[$text] = (array) $this->data[$text];
+  private function fillWith($filler) {
+    $fieldList = !empty($this->fieldList[$filler]) ? $this->fieldList[$filler] : [];
+    foreach ($fieldList as $value) {
+      if (!empty($this->data[$value])) {
+        if (!\is_array($this->data[$value])) {
+          $this->data[$value] = (array) $this->data[$value];
         }
-        foreach ($this->data[$text] as $emailValue) {
-          if (!empty($emailValue)) {
-            $this->fieldEmailFiller->fillField($this->entity, $text, $emailValue);
-          }
-        }
-      }
-    }
-  }
-
-  protected function fillDateFields() {
-    $fieldDateList = !empty($this->fieldList['fieldDateList']) ? $this->fieldList['fieldDateList'] : [];
-    foreach ($fieldDateList as $date) {
-      if (!empty($this->data[$date])) {
-        if (!\is_array($this->data[$date])) {
-          $this->data[$date] = (array) $this->data[$date];
-        }
-        foreach ($this->data[$date] as $dateValue) {
-          $this->fieldDateFiller->fillField($this->entity, $date, $dateValue);
+        foreach ($this->data[$value] as $dataValue) {
+          $this->{$filler}->fillField($this->entity, $value, $dataValue);
         }
       }
     }
   }
 
   protected function fillPropertyFields() {
-    $fieldPropertyList = !empty($this->fieldList['fieldPropertyList']) ? $this->fieldList['fieldPropertyList'] : [];
+    $fieldPropertyList = !empty($this->fieldList['propertyFiller']) ? $this->fieldList['propertyFiller'] : [];
     foreach ($fieldPropertyList as $property) {
       if (!empty($this->data[$property])) {
-        $this->fieldTextPropertyFiller->fillField($this->entity, $property, $this->data[$property]);
-      }
-    }
-  }
-
-  protected function fillFileFields() {
-    $fieldFileList = !empty($this->fieldList['fieldFileList']) ? $this->fieldList['fieldFileList'] : [];
-    foreach ($fieldFileList as $file) {
-      if (!empty($this->data[$file])) {
-        if (!\is_array($this->data[$file])) {
-          $this->data[$file] = (array) $this->data[$file];
-        }
-        foreach ($this->data[$file] as $fileValue) {
-          $this->fieldFileFiller->fillField($this->entity, $file, $fileValue);
-        }
+        $this->propertyFiller->fillField($this->entity, $property, $this->data[$property]);
       }
     }
   }
 
   protected function fillTaxoFields() {
-    $fieldTaxoList = !empty($this->fieldList['fieldTaxoList']) ? $this->fieldList['fieldTaxoList'] : [];
+    $fieldTaxoList = !empty($this->fieldList['taxoFiller']) ? $this->fieldList['taxoFiller'] : [];
     foreach ($fieldTaxoList as $vocabName => $taxo) {
       if (!empty($this->data[$taxo])) {
-        if (!is_array($this->data[$taxo])) {
+        if (!\is_array($this->data[$taxo])) {
           $this->data[$taxo] = (array) $this->data[$taxo];
         }
         foreach ($this->data[$taxo] as $taxoValue) {
           if (!empty($taxoValue)) {
-            $this->fieldTaxoFiller->createTermIfNotExists($taxoValue, $vocabName);
-            $term = $this->fieldTaxoFiller->getTerm($taxoValue, $vocabName);
-            $tid = current($term)->tid;
-            $this->fieldTaxoFiller->fillField($this->entity, $taxo, $tid);
+            $this->taxoFiller->createTermIfNotExists($taxoValue, $vocabName);
+            $term = $this->taxoFiller->getTerm($taxoValue, $vocabName);
+            $tid  = current($term)->tid;
+            $this->taxoFiller->fillField($this->entity, $taxo, $tid);
           }
         }
       }
     }
   }
 
-  protected function fillUrlFields() {
-    $fieldUrlList = !empty($this->fieldList['fieldUrlList']) ? $this->fieldList['fieldUrlList'] : [];
-    foreach ($fieldUrlList as $text) {
-      if (!empty($this->data[$text])) {
-        if (!\is_array($this->data[$text])) {
-          $this->data[$text] = (array) $this->data[$text];
-        }
-        foreach ($this->data[$text] as $urlValue) {
-          $this->fieldUrlFiller->fillField($this->entity, $text, $urlValue);
-        }
-      }
-    }
-  }
 }

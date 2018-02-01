@@ -5,11 +5,7 @@ namespace Janus\Generate;
 class NodeGenerator extends AbstractGenerator {
 
   protected $type;
-
   protected $language;
-
-  protected $fieldList;
-
 
   public function __construct($type, $fieldList, $language = 'und') {
     parent::__construct();
@@ -22,14 +18,11 @@ class NodeGenerator extends AbstractGenerator {
     $this->data = $data;
     $this->entity = $this->createNewEmptyNode($sourceTranslationNodeID);
 
-    $this->fillTextFields();
-    $this->fillEmailFields();
-    $this->fillDateFields();
     $this->fillPropertyFields();
-    $this->fillFileFields();
     $this->fillTaxoFields();
-    $this->fillUrlFields();
-
+    foreach ($this->fieldList as $fillerType => $fields) {
+      $this->fillFields($fillerType);
+    }
     $this->saveNodeInDrupal();
   }
 
@@ -59,6 +52,6 @@ class NodeGenerator extends AbstractGenerator {
     } catch (Exception $e) {
       echo $e->getMessage(), "\n";
     }
-    echo "Node with NID " . $node->nid . " saved\n\n";
+    echo "Node with NID " . $node->nid . " saved\n";
   }
 }
