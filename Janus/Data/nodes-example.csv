@@ -1,6 +1,6 @@
-description;text;name;taxo;email;url;date;files
-body text 1;example1;name1;A,B;test1@test.com;lewebdejulien.info;1980;dummy.pdf
-body text 2;example2;name2;A,B;test2@test.com,test2bis@test.com;lewebdejulien.info;1990;dummy.pdf,dummy2.pdf
-body text 3;example3;name3;A;test3@test.com;lewebdejulien.info;2000;dummy.pdf
-body text 4;example4;name4;A,C;test4@test.com;lewebdejulien.info;2010;dummy.pdf
-body text 5;example5;name5;B;test5@test.com;lewebdejulien.info;2020;dummy.pdf
+description;text;name;taxo;email;url;date;files;client number
+body text 1;example1;name1;A,B;test1@test.com;lewebdejulien.info;1980;dummy.pdf;1
+body text 2;example2;name2;A,B;test2@test.com,test2bis@test.com;lewebdejulien.info;1990;dummy.pdf,dummy2.pdf;12
+body text 3;example3;name3;A;test3@test.com;lewebdejulien.info;2000;dummy.pdf;123
+body text 4;example4;name4;A,C;test4@test.com;lewebdejulien.info;2010;dummy.pdf;1234
+body text 5;example5;name5;B;test5@test.com;lewebdejulien.info;2020;dummy.pdf;12345
