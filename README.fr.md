@@ -5,7 +5,7 @@ Les outils disponibles dans Janus vous seront utiles.
 
 Ces outils permettent de parser vos fichiers CSV, d'appliquer des modifications sur les données récupérées et enfin de créer des Nodes et des Users en utilisant des champs de type Text, Property, Email, Date, File, Integer, Link, Term Reference et Entity Reference.
 
-*Read this in [English](README.fr.md).*
+*Read this in [English](README.md).*
 
 ## Getting Started
 

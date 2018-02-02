@@ -5,7 +5,7 @@ The tools available in Janus will be helpful for this task.
 
 These tools allow you to parse your CSV files, apply changes to the retrieved data and finally create Nodes and Users using Text, Property, Email, Date, File, Integer, Link, Term Reference and Entity Reference fields.
 
-*Lisez ceci en [Anglais](README.fr.md).*
+*Lisez ceci en [Français](README.fr.md).*
 
 ## Getting Started
 
@@ -85,7 +85,7 @@ If you want to quickly how Janus works:
 
 ## Author
 
-* ** Julien Marciliac ** - [lewebdejulien.info](https://lewebdejulien.info)
+* **Julien Marciliac** - [lewebdejulien.info](https://lewebdejulien.info)
 
 ## Licence
 
