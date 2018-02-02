@@ -77,7 +77,7 @@ drush scr runScripts.php
 
 ## Examples
 
-If you want to quickly how Janus works:
+If you want to quickly see how Janus works:
 - Install Drupal 7 with all prerequisite modules.
 - Install Janus.
 - Import the [feature janus_features](Janus/janus_features) using the [Features module](https://www.drupal.org/project/features).
