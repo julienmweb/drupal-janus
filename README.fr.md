@@ -58,16 +58,18 @@ Vous pouvez alors démarrer l'utilisation de Janus.
 
 Ajouter vos fichiers CSV dans le repertoire [Data](Janus/Data), vos fichiers PDF, DOC etc dans le repertoire [Data/AttachedFiles](Janus/Data/AttachedFiles).
 
-### 2/ Créer vos scripts d'import
+### 2/ Créer vos types te contenu avec les champs associés dans l'administration de Drupal
+
+### 3/ Créer vos scripts d'import
 
 Dans le repertoire [Scripts](Janus/Scripts), vous developperez vos scripts d'imports en utilisant les outils disponibles dans Janus.
 Des fichiers d'exemples sont disponibles afin de vous familiariser avec leur utilisation.
 
-### 3/ Paramétrer le script d'execution de vos scripts d'importation
+### 4/ Paramétrer le script d'execution de vos scripts d'importation
 
 Vous modifierez le fichier [runScripts](Janus/runScripts.php) pour pouvoir utiliser vos fichiers CSV et vos scripts d'import.
 
-### 4/ Exécuter vos scripts d'import
+### 5/ Exécuter vos scripts d'import
 
 Vous exécuterez enfin le fichier [runScripts](Janus/runScripts.php) via Drush dans le terminal pour lancer l'importation de vos données dans Drupal.
 
