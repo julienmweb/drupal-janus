@@ -58,16 +58,18 @@ You can then start using Janus.
 
 Add your CSV files to the [Data directory](Janus/Data), your PDF files, DOC etc in the [Data/AttachedFiles directory](Janus/Data/AttachedFiles).
 
-### 2/ Creating your import scripts
+### 2/ Creating your content types with the associated fields in Drupal 7 Administration
+
+### 3/ Creating your import scripts
 
 In the [Scripts directory](Janus/Scripts), you will develop your import scripts using the tools available in Janus.
 Sample files are available to familiarize you with their use.
 
-### 3/ Setting the execution script
+### 4/ Setting the execution script
 
 You will modify the [runScripts file](Janus/runScripts.php) to use your CSV files and import scripts.
 
-### 4/ Executing your import scripts
+### 5/ Executing your import scripts
 
 You will finally run the [runScripts file](Janus/runScripts.php) via Drush in the terminal to start importing your data in Drupal.
 
