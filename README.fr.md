@@ -58,7 +58,7 @@ Vous pouvez alors démarrer l'utilisation de Janus.
 
 Ajouter vos fichiers CSV dans le repertoire [Data](Janus/Data), vos fichiers PDF, DOC etc dans le repertoire [Data/AttachedFiles](Janus/Data/AttachedFiles).
 
-### 2/ Créer vos types te contenu avec les champs associés dans l'administration de Drupal
+### 2/ Créer vos types de contenu avec les champs associés dans l'administration de Drupal
 
 ### 3/ Créer vos scripts d'import
 
